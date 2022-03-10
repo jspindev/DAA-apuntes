@@ -19,12 +19,13 @@ def greedySchedule(data):
     candidates = set()
     for i in range(n):
         candidates.add(i)
-    lastDate = max(data["deadLine"])
-    schedule = [-1] * (lastDate + 1)
+    # lastDate = max(data["deadLine"])
+    #schedule = [-1] * (lastDate + 1)
+    schedule = [-1] * n #mejor manera
     while candidates:
         bestItem = getBestItem(data, candidates)
         candidates.remove(bestItem)
-        i = data["deadLine"][bestItem]
+        i = data["deadLine"][bestItem] -1
         found = False
         while i >= 0 and not found:
             if isFeasible(schedule,i):
