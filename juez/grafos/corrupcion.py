@@ -19,14 +19,16 @@ def eulerian_tour_undirected(graph):
         P.append(start) # resulting path P is extended
     return P
 
-npersonas, nrelaciones =input().strip().split()
+npersonas, nrelaciones =map(int, input().strip().split())
 
-nrelaciones = int(nrelaciones)
 
 relaciones = {}
 keys = []
+for _ in range(npersonas):
+    keys.append([])
 for _ in range(nrelaciones):
     a, b = map(int, input().strip().split())
+    keys.append(a)
     relaciones[keys[a]].append(b)
 
 sol = eulerian_tour_undirected(relaciones)
