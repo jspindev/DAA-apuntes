@@ -1,39 +1,51 @@
-def eulerian_tour_undirected(graph):
-    P = [] # resulting tour
-    Q = [0] # vertices to be explored, start at 0
-    R = [] # path from start node
-    next_ = [0] * len(graph) # initialize next_ to 0 for each node
-    seen = [set() for _ in graph] # mark backward arcs
-    while Q:
-        start = Q.pop() # explore a cycle from start node
-        node = start # current node on cycle
-        while next_[node] < len(graph[node]): # visit all allowable arcs
-            neighbor = graph[node][next_[node]] # traverse an arc
-            next_[node] += 1 # mark arc traversed
-            if neighbor not in seen[node]: # not yet traversed
-                seen[neighbor].add(node) # mark backward arc
-                R.append(neighbor) # append to path from start
-                node = neighbor # move on
-        while R:
-            Q.append(R.pop()) # add to Q the discovered cycle R
-        P.append(start) # resulting path P is extended
-    return P
-
-npersonas, nrelaciones =map(int, input().strip().split())
+from collections import deque
 
 
-relaciones = {}
-keys = []
-for _ in range(npersonas):
-    keys.append([])
-for _ in range(nrelaciones):
-    a, b = map(int, input().strip().split())
-    keys.append(a)
-    relaciones[keys[a]].append(b)
+def bfsAux(g,visited,v):
+    q = deque()
+    ciclo = False
+    visited[v]=True
+    q.append(v)
+    while q:
+        aux=q.popleft()
+        for adj in g[aux]:
+            if not visited[adj]:
+                q.append(adj)
+                visited[adj] = True
+            elif visited[adj]:
+                ciclo = True
+    return ciclo
 
-sol = eulerian_tour_undirected(relaciones)
+def ciclos(g):
+    sc=False
+    n=len(g)
+    visited=[False]*n
+    solci=[False] * n
+    for v in range (n):
+        if not visited[v]:
+            sc =bfsAux(g,visited,v)
+        solci[v] = sc
+    return solci
 
-if len(sol)> 0:
-    print("CORRUPTOS")
-else:
+
+
+g=[]
+n,m = map(int, input().strip().split())
+for _ in range (n):
+    g.append([])
+
+for _ in range (m):
+    a,b =map(int, input().strip().split())
+    g[a].append(b)
+
+corrupto=False
+sol = ciclos(g)
+#print(sol)
+for i in sol:
+    if sol[i]:
+        corrupto=True
+
+if not corrupto:
     print("INOCENTES")
+else:
+    print("CORRUPTOS")
