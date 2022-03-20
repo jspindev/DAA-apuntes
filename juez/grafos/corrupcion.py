@@ -2,6 +2,7 @@ from collections import deque
 
 
 def bfsAux(g,visited,v):
+    inicial=v
     q = deque()
     ciclo = False
     visited[v]=True
@@ -12,6 +13,8 @@ def bfsAux(g,visited,v):
             if not visited[adj]:
                 q.append(adj)
                 visited[adj] = True
+                if inicial == adj:
+                    ciclo=True
             elif visited[adj]:
                 ciclo = True
     return ciclo
@@ -40,7 +43,7 @@ for _ in range (m):
 
 corrupto=False
 sol = ciclos(g)
-#print(sol)
+
 for i in sol:
     if sol[i]:
         corrupto=True

@@ -37,5 +37,5 @@ for _ in range(m):
     g[a].append(b)
 
 sol =topsort(g)
-sol.sort()
-print(sol)
+
+print(*sol)
