@@ -4,8 +4,8 @@ def dfsRec(g, visited, v,padre):
     visited[v] = True
     for adj in g[v]:
         if not visited[adj]:
-           if  dfsRec(g, visited, adj,padre):
-               return True
+            if  dfsRec(g, visited, adj,v):
+                return True
         elif padre != adj:
             return True
 
@@ -30,11 +30,12 @@ for _ in range (n):
 for _ in range (m):
     a,b =map(int, input().strip().split())
     g[a].append(b)
+    g[b].append(a)
 
 corruptos=dfs(g)
 
 if not corruptos:
     print("INOCENTES")
 else:
-    print("CORRUPCION")
+    print("CORRUPTOS")
 
