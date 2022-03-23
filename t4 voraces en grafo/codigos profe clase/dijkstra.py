@@ -18,7 +18,7 @@ def dijkstra(g, origin):
     #si origin es el nodo 1
     #[(1,2,5), (1,4,3)]
 
-    for start, end, weight in g[origin]:
+    for start, end, weight in g[origin]: #añade los nodos que estan al lado su peso
         distances[end] = weight
 
     #distances = [inf, 0, 5, inf, 3, inf]
@@ -26,7 +26,7 @@ def dijkstra(g, origin):
         next_node = select_min(distances, visited)
         visited[next_node] = True
         for start, end, weight in g[next_node]:
-            distances[end] = min(distances[end], distances[start]+weight)
+            distances[end] = min(distances[end], distances[start]+weight) #distancia anterior o pasando a traves de mi
 
     return distances
 
