@@ -16,9 +16,9 @@ def explodingkittens(data, m, data_aux):
             riesgo *= act_data[3]
 
     print(*ataques)
-    #for a in ataques:
-   #     sol.append(ataques[a][1])
-   # print(*sol, end=" ")
+   # for a in ataques:
+    #    sol.append(ataques[a][1])
+    #print(*sol)
 
 
 n,m = map(int, input().strip().split())
