@@ -6,7 +6,7 @@ def explodingkittens(data, m, data_aux):
     sol = []
     while riesgo < m:
         act_data = data.pop(0)
-        ataques.append(act_data)
+        ataques.append(act_data[1])
         if riesgo + act_data[3] <= m:
             riesgo += act_data[3]
             beneficio += act_data[2]
@@ -14,9 +14,11 @@ def explodingkittens(data, m, data_aux):
             riesgo_proporcional = m - riesgo
             beneficio += (riesgo_proporcional/act_data[3]) * act_data[2]
             riesgo *= act_data[3]
-    for a in ataques:
-        sol.append(ataques[a][1])
-    print(*sol)
+
+    print(*ataques)
+    #for a in ataques:
+   #     sol.append(ataques[a][1])
+   # print(*sol, end=" ")
 
 
 n,m = map(int, input().strip().split())
