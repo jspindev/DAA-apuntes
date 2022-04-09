@@ -13,7 +13,7 @@ def kruskal(g):
     list_edges = []
 
     for adjacents in g:
-        start, end, weight = adjacents
+       for  start, end, weight in adjacents:
         if start < end:
             list_edges.append((weight, start, end))
     list_edges.sort()
@@ -35,11 +35,13 @@ def kruskal(g):
 
 g = []
 
-n, m = input().strip().split()
-m = int(m)
+n, m = map(int,input().strip().split())
+
+for i in range(n+1):
+    g.append([])
 for _ in range(m):
     start, end, weight = map(int, input().strip().split())
-    g.append((start, end, weight))
+    g[start].append((start, end, weight))
 
 
 sol = kruskal(g)
