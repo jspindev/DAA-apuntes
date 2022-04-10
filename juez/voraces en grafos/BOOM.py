@@ -8,20 +8,16 @@ def select_min(distances, visited):
             index = i
     return index
 
-def dijkstra(g,t ,origin):
+def dijkstra(g,origin):
     distances = [float('inf')] * len(g)
     visited = [False] * len(g)
 
     distances[origin] = 0
     visited[origin] = True
 
-    #si origin es el nodo 1
-    #[(1,2,5), (1,4,3)]
-
-    for start, end, weight in g[origin]: #añade los nodos que estan al lado su peso
+    for start, end, weight in g[origin]:
         distances[end] = weight
 
-    #distances = [inf, 0, 5, inf, 3, inf]
     for i in range(2, len(g)):
         next_node = select_min(distances, visited)
         visited[next_node] = True
@@ -33,29 +29,34 @@ def dijkstra(g,t ,origin):
 
 
 g = []
-t = []
 n,m = map(int,input().strip().split())
 for _ in range(n):
     g.append([])
-for tipo in map(int, input().strip().split()):
-    t.append(tipo)
+
+ctipo =(input().strip().split())
+tipo=[int(x) for x in ctipo]
+t = []
+for nt in range(max(tipo)+1):
+    t.append([])
+for c in range(len(ctipo)):
+    t[tipo[c]].append(c)
+
 
 for _ in range(m):
     start, end, weight = map(int, input().strip().split())
-    g[start].append((start, end, weight))
-l = []
+    g[start].append((start,end,weight))
+    g[end].append((end,start,weight))
 
-i = 0
-taux = [] #tipos
-for a in t:
-    if a == i:
-        taux.append(a)
-        i+=1
+aux = []
+lsol = []
+for i in range(len(t)):
+    for e in t[i]:
+        solve = dijkstra(g,e)
+        for s in t[i]:
+            if solve[s] != 0:
+                aux.append(solve[s])
+    sol = min(aux)
+    lsol.append(sol)
+    aux.clear()
 
-for a in taux:
-    solve = dijkstra(g,t,a)
-    if a == t[a]:
-        cm = min(solve)
-    l.append(cm)
-print(l)
-#print(solve)
+print(lsol)

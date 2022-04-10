@@ -10,7 +10,6 @@ def select_min(distances, visited):
             index = i
     return index
 
-
 def dijkstra(g, origin, destino):
     distances = [float('inf')] * len(g)
     visited = [False] * len(g)
@@ -18,23 +17,27 @@ def dijkstra(g, origin, destino):
     distances[origin] = 0
     visited[origin] = True
 
-    start, end, weight = g[origin]
-    distances[end] = weight
+    final_weight = 0
+    for start, end, weight in g[origin]:
+        distances[end] = weight
 
 
     for i in range(2, len(g)):
         next_node = select_min(distances, visited)
         visited[next_node] = True
-        start, end, weight = g[next_node]
-        distances[end] = min(distances[end], distances[start]+weight)
-
+        for start, end, weight in g[next_node]:
+            distances[end] = min(distances[end], distances[start]+weight) #distancia anterior o pasando a traves de mi
+            final_weight += weight
+    print(final_weight)
     return distances
 
 n, m = map(int, input().strip().split())
 g = []
 for _ in range(m):
+    g.append([])
+for _ in range(m):
     start, end, weight = map(int,input().strip().split())
-    g.append((start, end, weight))
+    g[start].append((start, end, weight))
 origen, destino = map(int, input().strip().split())
 
 
