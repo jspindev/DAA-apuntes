@@ -36,12 +36,12 @@ def piguis(g, ini, fin):
 
 g = []
 n, m = map(int, input().strip().split())
-for r in range(n):
+for _ in range(n):
     g.append([])
-for i in range(m):
-    a, b, c = map(int, input().strip().split())
-    g[a].append([a, b, c])
-    g[b].append([b, a, c])
+for _ in range(m):
+    start, end, weight = map(int, input().strip().split())
+    g[start].append([start, end, weight])
+    g[end].append([end, start, weight])
 ini, fin = map(int, input().strip().split())
 
 piguis(g, ini, fin)
