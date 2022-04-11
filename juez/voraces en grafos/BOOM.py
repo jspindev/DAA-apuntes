@@ -59,4 +59,4 @@ for i in range(len(t)):
     lsol.append(sol)
     aux.clear()
 
-print(lsol)
+print(*lsol)
