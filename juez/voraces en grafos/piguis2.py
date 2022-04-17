@@ -8,12 +8,12 @@ def select_min(distances, visited):
     return index
 
 
-def piguis(g, ini, fin):
-    parent = [-1] * len(g)
+def dijkstra(g, ini, fin):
+
     distances = [float('inf')] * len(g)
     visited = [False] * len(g)
+    ruta = []
     explorar = []
-
     distances[ini] = 0
     visited[ini] = True
     for start, end, weight in g[ini]:
@@ -25,12 +25,17 @@ def piguis(g, ini, fin):
 
         for start, end, weight in g[next_node]:
             distances[end] = min(distances[end], distances[start] + weight)
-            parent[end] = next_node
-
+            explorar.append(end)
+    cont = 0
+    for  a in explorar:
+        if a != fin and cont <1:
+            ruta.append(a)
+        else:
+            cont+=1
+    ruta.append(fin)
 
     print(distances[fin])
-    print(parent)
-    print(explorar)
+    print(ruta)
 
 
 
@@ -44,4 +49,4 @@ for _ in range(m):
     g[end].append([end, start, weight])
 ini, fin = map(int, input().strip().split())
 
-piguis(g, ini, fin)
+dijkstra(g, ini, fin)
