@@ -33,6 +33,12 @@ def dijkstra(g, ini, fin):
                 distances[end] = distances[start] + weight
                 ruta[end] = ruta[start].copy()
                 ruta[end].append(end)
+            #end1=distances[end] lo mismo de otra forma
+            #distances[end] = min(distances[end], distances[start] + weight)
+            #if end1 != distances[end]:
+             #   ruta[end]=ruta[start].copy()
+              #  ruta[end].append(end)
+
 
     print(distances[fin])
     print(*ruta[fin])
