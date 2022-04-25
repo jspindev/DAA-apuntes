@@ -12,6 +12,8 @@ def dibujar(A,ini,fin):
 
 def merge(A, p, q, r):
    n1 = q - p + 1
+   n2 = r - q
+   L = np.empty(n1+1)
    R = np.empty(n2+1)
    for i in range(n1):
       L[i] = A[p + i]
