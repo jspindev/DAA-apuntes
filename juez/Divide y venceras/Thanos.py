@@ -13,9 +13,9 @@ def aux(amoche,act):
     elif amoche[med] < act:
         aux(amoche[:-med], act)
     elif amoche[med] == act:
-        print(":_(")
-    elif len(amoche) == 0:
         print(":)")
+    elif len(amoche) == 0:
+        print(":_)")
 
 
 def chasquido(habitantes,amoche,certificados):
@@ -39,8 +39,11 @@ amoches.sort()
 
 
 p = int(input())
-amoche = []
+certificados = []
 for e in map(int,input().strip().split()):
-    amoche.append(e)
-amoche.sort()
-guanteinfinito(habitantes, amoches, amoche)
+    certificados.append(e)
+certificados.sort()
+
+
+#guanteinfinito(habitantes, amoches, certificados)
+chasquido(habitantes, amoches, certificados)
