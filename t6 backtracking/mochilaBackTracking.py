@@ -21,8 +21,8 @@ def esSolucion(sol,datos):
     #return k == len(sol['Objetos'] -1)
     #return k == datos['N']
 def mochilaVA(sol, mejorSol, datos, k):
-    if esSolucion():
-
+    if esSolucion(sol,datos):
+        pass
 
 #prog.principal
 datos = inicializarDatos()
