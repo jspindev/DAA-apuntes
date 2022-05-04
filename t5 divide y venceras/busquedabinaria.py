@@ -1,13 +1,5 @@
 
 
-def rec_bs(e, low, high, elements):
-    if low > high:
-        return -1
-    mid = (low + high ) // 2
-
-def rec_binarySearch(e, elements):
-    return rec_bs(e, 0 , len(elements) -1, elements)
-
 
 #divide y venceras se suele hacer de manera recursivo, en este caso tenemos  un array que vamos
 # partiendo en mitades para ir descartando o hasta cuando se que ele lemneto no esta

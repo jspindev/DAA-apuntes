@@ -30,6 +30,5 @@ if __name__ == '__main__':
         if (pos < 0):
             print(0,0)
         else:
-
             print(str(pos+1) + " " + str(suma_puntos[pos]))
 
