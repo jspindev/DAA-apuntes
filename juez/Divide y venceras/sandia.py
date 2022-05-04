@@ -40,7 +40,7 @@ wm = []
 for f in range(N):
     wm.append(list(map(int, input().strip().split())))
 minims = []
-totalPieces = 4 ** C # numero de submatrices
+totalPieces = 4 ** C # numero de submatrices ** es una potencia 4 ^c
 maxPieces = N * N # numero de elementos en la matriz
 minSeed1 = float('inf')
 if maxPieces == totalPieces: # si el numero de elementos totales = numero de submatrices
