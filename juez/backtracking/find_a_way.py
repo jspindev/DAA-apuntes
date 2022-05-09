@@ -35,10 +35,13 @@ def esFactible(lab,f,c):
         return False
 
 def laberintoVA(lab, mejorSol, f, c, k):
+
     if esSolucion(lab, f, c):
         if esMejor(lab,mejorSol):
             mejorSol = copy.deepcopy(lab)
+            fin = True
     else:
+        fin = False
         desp = [[1,0], [1,0], [-1,0], [0, -1]]
         i=0
         while i < len(desp):
@@ -51,7 +54,21 @@ def laberintoVA(lab, mejorSol, f, c, k):
                 #lab[f+desp[i][0]][c+ desp[i][1]]
                 lab[newF][newC] = 0
             i+=1
-    return mejorSol
+
+    return fin
+
+def imprimir(laberinto):
+    for f in range(len(laberinto)):
+        for c in range(len(laberinto[0])):
+            if laberinto[f][c] == inf:
+                print('*', end='\t')
+            else:
+                if laberinto[f][c] == 0:
+                    print(' ', end='\t')
+                else:
+                    print(laberinto[f][c], end='\t')
+        print()
+    print()
 
 
 #prog principal
@@ -61,12 +78,30 @@ def laberintoVA(lab, mejorSol, f, c, k):
 n = int(input())
 laberinto = []
 for i in range(n):
-    fila = input().strip().split()
-    laberinto.append(fila)
+    laberinto.append(list(map(int, input().strip().split())))
 paredes = []
-for c in laberinto:
-    for f in laberinto[c]:
-        if f == 0:
-            paredes.append([c,f])
 
-print(paredes)
+cx = 0
+cy = 0
+for x in laberinto:
+    for y in x:
+        if x[y] == -1:
+            paredes.append((cx,cy))
+        cy += 1
+    cx += 1
+    cy =0
+
+msol = inicializarMejorSol(laberinto)
+f = 0
+c = 0
+k = 1
+sol = laberintoVA(laberinto,msol,f,c,k+1)
+
+#print(sol)
+#imprimir(sol)
+if sol:
+    print("SI")
+else:
+    print("NO")
+#print(laberinto)
+#print(paredes)

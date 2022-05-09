@@ -1,3 +1,10 @@
+def esFactible(cell,dirX,dirY,mat,lastObject,visited):
+    nextX = cell[0] + dirX
+    nextY = cell[1] + dirY
+    return (0 <= nextX < len(mat)) and (0 <= nextY <len(mat[0])) and \
+           (mat[nextX][nextY] == lastObject+1 or mat[nextX][nextY] == 0) and \
+           mat[nextX][nextY] not in visited
+
 def bt(mat, cell, p, lastObject, actMin, actStep, visited):
     if lastObject == p:
         actMin = min(actMin, actStep)
@@ -18,13 +25,6 @@ def bt(mat, cell, p, lastObject, actMin, actStep, visited):
                 if updateObject:
                     lastObject -=1
     return actMin
-
-
-
-def esFactible(cell,dirX,dirY,mat,lastObject,visited):
-    nextX = cell[0] + dirX
-    nextY = cell[1] + dirY
-    return 0<= nextX < len(mat) and 0 <= nextY <len(mat[0]) and (mat[nextX][nextY] == lastObject+1 or mat[nextX][nextY] == 0) and mat[nextX][nextY] not in visited
 
 
 

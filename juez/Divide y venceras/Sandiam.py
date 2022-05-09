@@ -14,6 +14,7 @@ def cutWM(wm, y, x, n, c):
             wm[i][j]
             for i in range(y, y + n)
             for j in range(x, x + n)
+
         )
     w = n // 2
     minHeight = min(
