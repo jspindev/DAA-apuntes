@@ -6,7 +6,7 @@ def inicializarSolucion(grafo):
     return sol
 
 def esSolucion(nodo, grafo):
-    return nodo not in grafo['adyacencia'][nodo][0] and not in grafo['adyacencia'][nodo][1]
+    return nodo not in grafo['adyacencia'][nodo][0] #and not in grafo['adyacencia'][nodo][1]
 
 def esFactible(grafo, sol, nodo, color):
     factible = True
@@ -44,9 +44,11 @@ for i in range(9):
 
 grafo = {}
 grafo['n'] = 9
-grafo['adyacencia'] = []
+grafo['adyacenciaFila'] = []
+grafo['adyacenciaColumna'] = []
 for n in range(9):
-    grafo['adyacencia'].append((fila[n], columna[n]))
+    grafo['adyacenciaFila'].append((fila[n]))
+    grafo['adyacenciaColumna'].append(columna[n])
 
 #sol = inicializarSolucion(grafo)
 sol = copy.deepcopy(fila)

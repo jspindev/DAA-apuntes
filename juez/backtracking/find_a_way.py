@@ -1,107 +1,52 @@
-import copy
-from math import inf
-
-def inicializarLaberinto(n):
-    F = 10
-    C = 10
-    fila = [0]*n
-    laberinto = []
-    for i in range(F):
-        laberinto.append(fila[:])
-    paredes = [[0, 2], [0, 7], [1, 0], [1, 2], [1, 5], [1, 6], [1, 8], [2, 6], [2, 8], [3, 1], [3, 4], [3, 5], [3, 6], [4,2],[4,3],[4,7],[5,5],[5,7],[6,0],[6,3],[6,4],[6,7],[6,9],[7,1],[7,2],[7,8],[7,9],[8,2],[8,4],[8,5]]
-    for i in range(len(paredes)):
-        laberinto[paredes[i][0]] [paredes[i][1]] = inf
-
-    return laberinto
-
-def inicializarMejorSol(lab):
-    mejorSol = copy.deepcopy(lab)
-    mejorSol[len(lab)-1][len(lab[0]) -1] = inf
-    return mejorSol
-
-def esSolucion(lab, f, c):
-    return (f == len(lab)-1) and (c == len(lab[0])-1)
-
-def esMejor(sol1,sol2):
-    n = len(sol1) -1
-    m = len(sol1[[0]])-1
-
-    return sol1[n][m] < sol2[n][m]
-
-def esFactible(lab,f,c):
-    if f >= 0 and f < len(lab) and c>=0 and c <len(lab[0]):
-        return lab[f][c] == 0
-    else:
+def esFactible(tablero, nueva_x, nueva_y):
+    if (nueva_x>=len(tablero)) or (nueva_x<0) or (nueva_y>=len(tablero) or nueva_y<0):
         return False
+    if (tablero[nueva_x][nueva_y]==-1) or (tablero[nueva_x][nueva_y]=='E'):
+        return False
+    return True
 
-def laberintoVA(lab, mejorSol, f, c, k):
+def estacompleto(tablero):
+    relleno= True
+    i=0
+    while relleno and i<len(tablero):
+        if tablero[i].__contains__(0):
+            return False
+        i +=1
+    return True
 
-    if esSolucion(lab, f, c):
-        if esMejor(lab,mejorSol):
-            mejorSol = copy.deepcopy(lab)
-            fin = True
-    else:
-        fin = False
-        desp = [[1,0], [1,0], [-1,0], [0, -1]]
-        i=0
-        while i < len(desp):
-            newF= f +desp[i][0]
-            newC = c +desp[i][1]
-            if esFactible(lab,f+desp[i][0], c+ desp[i][1]):
-                lab[f+desp[i][0]][c+desp[i][1]] = k
-                #mejorSol = laberintoVA(lab, mejorSol, f+desp[i][0], c+ desp[i][1], k+1)
-                mejorSol = laberintoVA(lab, mejorSol, newF,newC, k + 1)
-                #lab[f+desp[i][0]][c+ desp[i][1]]
-                lab[newF][newC] = 0
-            i+=1
 
-    return fin
-
-def imprimir(laberinto):
-    for f in range(len(laberinto)):
-        for c in range(len(laberinto[0])):
-            if laberinto[f][c] == inf:
-                print('*', end='\t')
+def BT(tablero, pos_actual_x, pos_actual_y, mov_rel_x, mov_rel_y):
+    exito=False
+    intento=0
+    while intento<=3 and not exito:
+        nueva_x=pos_actual_x + mov_rel_x[intento]
+        nueva_y=pos_actual_y + mov_rel_y[intento]
+        if esFactible(tablero,nueva_x,nueva_y):
+            if(tablero[nueva_x][nueva_y]=='S')and(estacompleto(tablero)):
+                exito=True
             else:
-                if laberinto[f][c] == 0:
-                    print(' ', end='\t')
-                else:
-                    print(laberinto[f][c], end='\t')
-        print()
-    print()
+                tablero[nueva_x][nueva_y]=-1
+                exito=BT(tablero,nueva_x,nueva_y,mov_rel_x,mov_rel_y)
+
+                if not exito:
+                    tablero[nueva_x][nueva_y]=0
+        intento=intento+1
+    return exito
 
 
-#prog principal
+N= int(input()) #numero de filas y de columnas
+tablero=[]
+for i in range(N):
+    fila = list(map(int,input().strip().split()))
+    tablero.append(fila)
 
+mov_rel_x = [1,-1,0, 0]
+mov_rel_y = [0,0,1, -1]
+tablero[0][0]='E'
+tablero[N-1][N-1]='S'
 
-
-n = int(input())
-laberinto = []
-for i in range(n):
-    laberinto.append(list(map(int, input().strip().split())))
-paredes = []
-
-cx = 0
-cy = 0
-for x in laberinto:
-    for y in x:
-        if x[y] == -1:
-            paredes.append((cx,cy))
-        cy += 1
-    cx += 1
-    cy =0
-
-msol = inicializarMejorSol(laberinto)
-f = 0
-c = 0
-k = 1
-sol = laberintoVA(laberinto,msol,f,c,k+1)
-
-#print(sol)
-#imprimir(sol)
-if sol:
-    print("SI")
+exito=BT(tablero,0,0,mov_rel_x,mov_rel_y)
+if (exito):
+    print('SI')
 else:
-    print("NO")
-#print(laberinto)
-#print(paredes)
+    print('NO')
