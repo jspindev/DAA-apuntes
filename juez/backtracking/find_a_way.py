@@ -22,7 +22,7 @@ def BT(tablero, pos_actual_x, pos_actual_y, mov_rel_x, mov_rel_y):
         nueva_x=pos_actual_x + mov_rel_x[intento]
         nueva_y=pos_actual_y + mov_rel_y[intento]
         if esFactible(tablero,nueva_x,nueva_y):
-            if(tablero[nueva_x][nueva_y]=='S')and(estacompleto(tablero)):
+            if(tablero[nueva_x][nueva_y]=='S')and(estacompleto(tablero)): # es solucion
                 exito=True
             else:
                 tablero[nueva_x][nueva_y]=-1

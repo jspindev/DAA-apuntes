@@ -41,20 +41,28 @@ for i in range(9):
     columna.append([])
     for j in range(9):
         columna[i].append(fila[j][i])
+cuadrante = []
+for c in range(9):
+    if c < 6:
+        cuadrante[c].append(fila[c][c],fila[c][c+1],fila[c][c+2])
+
 
 grafo = {}
 grafo['n'] = 9
-grafo['adyacenciaFila'] = []
-grafo['adyacenciaColumna'] = []
+grafo['Fila'] = []
+grafo['Columna'] = []
+grafo['Cuadrante'] = cuadrante
 for n in range(9):
-    grafo['adyacenciaFila'].append((fila[n]))
-    grafo['adyacenciaColumna'].append(columna[n])
+    grafo['Fila'].append((fila[n]))
+    grafo['Columna'].append(columna[n])
+
+print(cuadrante)
 
 #sol = inicializarSolucion(grafo)
 sol = copy.deepcopy(fila)
 nodo = 1
 m=9
-sudoku(grafo, m , sol,nodo)
+#sudoku(grafo, m , sol,nodo)
 
 #print(fila)
 #print(columna)
